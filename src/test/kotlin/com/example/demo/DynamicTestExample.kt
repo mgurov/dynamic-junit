@@ -3,20 +3,38 @@ package com.example.demo
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.*
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 
 fun isPalindrome(s: String?): Boolean {
+    println(s)
     return s?.reversed() == s
 }
 
 class DynamicTestExample {
 
-    val testCases = listOf(
-        "poop" to true,
-        "poo" to false,
-        "" to true,
-        " a" to false,
-        null to true,
-    )
+
+    companion object {
+        @JvmStatic
+        val testCases = listOf(
+            "poop" to true,
+            "poo" to false,
+            "" to true,
+            " a" to false,
+            null to true,
+        )
+    }
+
+    @BeforeEach
+    fun beforeEach() {
+        println("before each")
+    }
+
+    @ParameterizedTest()
+    @MethodSource("getTestCases")
+    fun `palindrome or not asserted parametrizedly`(case: Pair<String, Boolean>) {
+        assertThat(isPalindrome(case.first)).isEqualTo(case.second)
+    }
 
     @Test
     fun `palindrome or not asserted softly`() {
@@ -33,6 +51,7 @@ class DynamicTestExample {
 
     @TestFactory
     fun `palindrome or not`(): List<DynamicTest> {
+        println("producing test methods")
         return testCases.map { (given, expected) ->
             DynamicTest.dynamicTest("$given is " + (if (!expected) "not " else "") + "a palindrome") {
                 assertThat(isPalindrome(given)).isEqualTo(expected)
