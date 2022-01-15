@@ -1,9 +1,6 @@
 package com.example.demo
 
-import io.kotest.core.config.configuration
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.core.test.config.enabledOrReasonIf
-import io.kotest.matchers.string.shouldHaveLength
 import org.assertj.core.api.Assertions.assertThat
 
 class DynamicTests : FunSpec({
