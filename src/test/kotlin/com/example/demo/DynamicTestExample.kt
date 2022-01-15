@@ -1,10 +1,6 @@
 package com.example.demo
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.TestFactory
-import java.net.URI
+import org.junit.jupiter.api.*
 
 class DynamicTestExample {
 
@@ -27,5 +23,4 @@ class DynamicTestExample {
             }
         }
     }
-
 }
