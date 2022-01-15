@@ -5,7 +5,7 @@ import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.*
 
 fun isPalindrome(s: String?): Boolean {
-    return true
+    return s?.reversed() == s
 }
 
 class DynamicTestExample {
