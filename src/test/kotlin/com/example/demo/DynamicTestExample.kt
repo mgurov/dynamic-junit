@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import org.junit.platform.engine.discovery.DiscoverySelectors
 import java.net.URI
 
 class DynamicTestExample {
@@ -23,7 +22,7 @@ class DynamicTestExample {
     fun makeTests(): List<DynamicTest> {
 
         return listOf("12321", "poop").map { word ->
-            DynamicTest.dynamicTest("$word should be a palindrome", URI.create("file:/Users/mgurov/src/mine/parameterized-junit/src/test/kotlin/com/example/demo/DynamicTestExample.kt?line=20,column=2")) {
+            DynamicTest.dynamicTest("$word should be a palindrome") {
                 Assertions.assertTrue(isPalindrome(word))
             }
         }
