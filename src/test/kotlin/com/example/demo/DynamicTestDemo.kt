@@ -157,12 +157,12 @@ internal class DynamicTestsDemo {
 
     @TestFactory
     fun dynamicNodeSingleTest(): DynamicNode {
-        return DynamicTest.dynamicTest("'pop' is a palindrome", Executable { assertTrue(isPalindrome("pop")) })
+        return dynamicTest("'pop' is a palindrome", Executable { assertTrue(isPalindrome("pop")) })
     }
 
     @TestFactory
     fun dynamicNodeSingleContainer(): DynamicNode {
-        return DynamicContainer.dynamicContainer("palindromes",
+        return dynamicContainer("palindromes",
             Stream.of("racecar", "radar", "mom", "dad")
                 .map<DynamicTest>(Function<String, DynamicTest> { text: String? ->
                     DynamicTest.dynamicTest(text,
