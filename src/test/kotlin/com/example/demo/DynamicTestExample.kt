@@ -50,13 +50,26 @@ class DynamicTestExample {
     }
 
     @TestFactory
-    fun `palindrome or not`(): List<DynamicTest> {
+    fun `palindrome or not`(): List<DynamicNode> {
         println("producing test methods")
-        return testCases.map { (given, expected) ->
-            DynamicTest.dynamicTest("$given is " + (if (!expected) "not " else "") + "a palindrome") {
-                assertThat(isPalindrome(given)).isEqualTo(expected)
+
+        val palindromes = DynamicContainer.dynamicContainer(
+            "these are palindromes", listOf("poop", "", null).map {
+                DynamicTest.dynamicTest("-> " + it) {
+                    assertThat(isPalindrome(it)).isTrue()
+                }
             }
-        }
+        )
+
+        val nonPalindromes = DynamicContainer.dynamicContainer(
+            "these aren't palindromes", listOf("poo", " a").map {
+                DynamicTest.dynamicTest(it) {
+                    assertThat(isPalindrome(it)).isFalse()
+                }
+            }
+        )
+
+        return listOf(palindromes, nonPalindromes)
     }
 }
 
