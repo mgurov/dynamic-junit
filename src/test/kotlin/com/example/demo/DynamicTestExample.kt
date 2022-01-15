@@ -7,6 +7,26 @@ fun isPalindrome(s: String?): Boolean {
     return true
 }
 
+class DynamicTestExample {
+
+    @TestFactory
+    fun `palindrome or not`(): List<DynamicTest> {
+        val testCases = listOf(
+            "poop" to true,
+            "poo" to false,
+            "" to true,
+            " a" to false,
+            null to true,
+        )
+
+        return testCases.map { (given, expected) ->
+            DynamicTest.dynamicTest("$given is " + (if (!expected) "not " else "") + "a palindrome") {
+                assertThat(isPalindrome(given)).isEqualTo(expected)
+            }
+        }
+    }
+}
+
 class VanillaTest {
 
     @Test
