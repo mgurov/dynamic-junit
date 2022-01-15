@@ -1,26 +1,21 @@
 package com.example.demo
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-class DynamicTestExample {
+fun isPalindrome(s: String?): Boolean {
+    return true
+}
 
-    @BeforeEach
-    fun doBeforeEachTest() {
-        println("blah")
+class VanillaTest {
+
+    @Test
+    fun `poop is a palindrome`() {
+        assertThat(isPalindrome("poop")).isTrue()
     }
 
-    fun isPalindrome(s: String?): Boolean {
-        return if (s == null) false else s.reversed() == s
-    }
-
-
-    @TestFactory
-    fun makeTests(): List<DynamicTest> {
-
-        return listOf("12321", "poop").map { word ->
-            DynamicTest.dynamicTest("$word should be a palindrome") {
-                Assertions.assertTrue(isPalindrome(word))
-            }
-        }
+    @Test
+    fun `poo isn't a palindrome`() {
+        assertThat(isPalindrome("poo")).isFalse()
     }
 }
