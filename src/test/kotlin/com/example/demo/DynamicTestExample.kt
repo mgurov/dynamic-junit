@@ -3,6 +3,7 @@ package com.example.demo
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
@@ -52,6 +53,24 @@ class TestExample {
                 assertThat(isPalindrome(given)).isEqualTo(expected)
             }
         }
+    }
+
+    @TestFactory
+    fun `is a palindrome or not - hierarchical dynamic style`(): List<DynamicNode> {
+
+        val expectedTrue = dynamicContainer("palindromes are", listOf("poop", "", null).map {
+            dynamicTest("->" + it) {
+                assertThat(isPalindrome(it)).isTrue()
+            }
+        })
+
+        val expectedFalse = dynamicContainer("non-palindromes are", listOf("poo", " a").map {
+            dynamicTest(it) {
+                assertThat(isPalindrome(it)).isFalse()
+            }
+        })
+
+        return listOf(expectedTrue, expectedFalse)
     }
 
     @Test
